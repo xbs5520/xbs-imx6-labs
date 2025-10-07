@@ -9,7 +9,7 @@ Usage (example):
   ./serial_logger.py --infile sample.log --out ../data/run_$(date +%F_%H%M%S).csv
 
 CSV columns:
-  iter,ts_host_ms,fault_type,td_ms,tr_ms,ok,attempts,scl_pulses,notes
+    ir,ps,als,iter,ts_host_ms,fault_type,td_ms,tr_ms,ok,attempts,scl_pulses,notes
 """
 import argparse
 import csv
@@ -19,10 +19,14 @@ import time
 from datetime import datetime
 
 KNOWN_KEYS = {
+    "ir", "ps", "als",
     "iter", "fault", "td_ms", "tr_ms", "ok", "attempts", "pulses"
 }
 
 CSV_HEADER = [
+    "ir",
+    "ps",
+    "als",
     "iter",
     "ts_host_ms",
     "fault_type",
@@ -41,10 +45,15 @@ KV_RE = re.compile(r"(\w+)=\s*([^\s,]+(?:\s[^\s,]+)?)")
 KV_SPAN_RE = re.compile(r"(\w+)\s*=\s*(.*?)(?=\s+\w+\s*=|$)")
 
 
+def _strip_ctrl(s: str) -> str:
+    # Remove non-printable control chars (including DEL 0x7F)
+    return "".join(ch for ch in s if ch == "\t" or ch == "\n" or (32 <= ord(ch) <= 126))
+
+
 def _normalize_fault(v: str) -> str:
     if not v:
         return "none"
-    s = v.strip().lower().replace('-', ' ').replace('_', ' ')
+    s = _strip_ctrl(v).strip().lower().replace('-', ' ').replace('_', ' ')
     if s in ("none", "no fault", "no", "ok"):  # accept variants
         return "none"
     if s in ("sda stuck",):
@@ -86,6 +95,10 @@ def parse_line(line: str):
     rec["ok"] = _to_int(kv.get("ok", "0"), 0)
     rec["attempts"] = _to_int(kv.get("attempts", "0"), 0)
     rec["scl_pulses"] = _to_int(kv.get("pulses", "0"), 0)
+    # sensor readings (optional)
+    rec["ir"] = _to_int(kv.get("ir", "0"), 0)
+    rec["ps"] = _to_int(kv.get("ps", "0"), 0)
+    rec["als"] = _to_int(kv.get("als", "0"), 0)
 
     # Extras into notes
     extras = []
@@ -146,6 +159,9 @@ def main():
             if extra_notes:
                 notes = (notes + " " + extra_notes).strip() if notes else extra_notes
             rec_row = {
+                "ir": rec.get("ir", 0),
+                "ps": rec.get("ps", 0),
+                "als": rec.get("als", 0),
                 "iter": rec["iter"],
                 "ts_host_ms": ts_ms,
                 "fault_type": rec["fault_type"],

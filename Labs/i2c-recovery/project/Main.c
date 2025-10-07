@@ -19,27 +19,24 @@
 #include "../bsp/i2c/bsp_i2c.h"
 #include "../bsp/ap3216c/bsp_ap3216c.h"
 
+extern volatile int g_i2c_blocked;
+
 int main()
 {
     imx6u_clkinit();
     clk_Enable();
     uart_Init();
     delay_Init();
+    rtc_init();
     // I2C init
     ap3216c_init();
 
-    uint8_t value = 0;
-    int iter = 0;
-    int ok = 1, attempts = 0, pulses = 0;
-    char fault[8] = {"No fault"};
-    int td_ms = 0, tr_ms = 0;
     while(1)
     {
-        value = ap3216c_readonebyte(AP3216C_ADDR, AP3216C_SYSTEMCONG);
-        printf("key=%#x iter= %d fault=%s td_ms=%d tr_ms=%d ok=%d attempts=%d pulses=%d\r\n",
-            value, iter, fault, td_ms, tr_ms, ok, attempts, pulses);
-        iter++;
-        delayms(500);
+        uint32_t now = systick_ms();
+        fault_auto_process(now);
+        rec_evt_pump();
+        delayms(50);
     }
     
     return 0;

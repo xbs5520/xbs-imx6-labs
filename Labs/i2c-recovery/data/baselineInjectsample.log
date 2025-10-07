@@ -1,0 +1,10 @@
+af_csv version=1 mode=auto seq=1 phase=inject ts=874781024 hold_ms=0 base_ir=4 base_ps=48 base_als=0 end_ir=4 end_ps=48 end_als=0 delta_ir=0 delta_ps=0 delta_als=0 drops=0
+af_csv version=1 mode=auto seq=1 phase=release ts=874782059 hold_ms=1035 base_ir=4 base_ps=48 base_als=0 end_ir=7 end_ps=32 end_als=0 delta_ir=3 delta_ps=-16 delta_als=0 drops=0
+af_csv version=1 mode=auto seq=2 phase=inject ts=874787105 hold_ms=0 base_ir=6 base_ps=33 base_als=0 end_ir=6 end_ps=33 end_als=0 delta_ir=0 delta_ps=0 delta_als=0 drops=0
+af_csv version=1 mode=auto seq=2 phase=release ts=874788130 hold_ms=1025 base_ir=6 base_ps=33 base_als=0 end_ir=5 end_ps=25 end_als=0 delta_ir=-1 delta_ps=-8 delta_als=0 drops=0
+af_csv version=1 mode=auto seq=3 phase=inject ts=874793161 hold_ms=0 base_ir=6 base_ps=32 base_als=0 end_ir=6 end_ps=32 end_als=0 delta_ir=0 delta_ps=0 delta_als=0 drops=0
+af_csv version=1 mode=auto seq=3 phase=release ts=874794196 hold_ms=1035 base_ir=6 base_ps=32 base_als=0 end_ir=5 end_ps=33 end_als=0 delta_ir=-1 delta_ps=1 delta_als=0 drops=0
+af_csv version=1 mode=auto seq=4 phase=inject ts=874799196 hold_ms=0 base_ir=1 base_ps=41 base_als=0 end_ir=1 end_ps=41 end_als=0 delta_ir=0 delta_ps=0 delta_als=0 drops=0
+af_csv version=1 mode=auto seq=4 phase=release ts=874800227 hold_ms=1031 base_ir=1 base_ps=41 base_als=0 end_ir=9 end_ps=39 end_als=0 delta_ir=8 delta_ps=-2 delta_als=0 drops=0
+af_csv version=1 mode=auto seq=5 phase=inject ts=874805246 hold_ms=0 base_ir=6 base_ps=36 base_als=0 end_ir=6 end_ps=36 end_als=0 delta_ir=0 delta_ps=0 delta_als=0 drops=0
+af_csv version=1 mode=auto seq=5 phase=release ts=874806293 hold_ms=1047 base_ir=6 base_ps=36 base_als=0 end_ir=1 end_ps=43 end_als=0 delta_ir=-5 delta_ps=7 delta_als=0 drops=0

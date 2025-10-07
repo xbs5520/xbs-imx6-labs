@@ -20,6 +20,11 @@
 #define AP3216C_PSDATAHIGH      0X0F
 
 
+void fault_auto_process(uint32_t time);
+void rec_evt_pump(void);              
+void p2_force_pull_sda(void);         // pull SDA low
+void p2_backto_pad(void);             // recovery SDA/SCL
+
 unsigned char ap3216c_init(void);
 unsigned char ap3216c_readonebyte(unsigned char addr, unsigned char reg);
 unsigned char ap3216c_writeonebyte(unsigned char addr, unsigned char reg, 

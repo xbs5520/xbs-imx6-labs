@@ -30,3 +30,43 @@ Start on bare‑metal for full pin/control access, then optionally port to Linux
 资源：
 - 工具说明：`P2_i2c_recovery/tools/README.md`
 - CSV/字段：`P2_i2c_recovery/tools/logger_schema.md`
+
+
+
+## Baseline Day 1 — Automatic SDA fault injection (simple)
+
+Focus today: build a clean, repeatable automatic I2C fault injection loop (SDA forced low for a fixed hold window) and emit structured logs ready for later detection & recovery phases.
+
+What was added:
+- Automatic periodic injector (no button needed). Cycle: every 5s start -> hold SDA low ~1s -> release.
+- Clean state machine: IDLE -> INJECTING -> back to IDLE (scheduled next cycle).
+- Baseline and end sensor sampling (AP3216C IR / PS / ALS) around each injection.
+- Unified event queue + pump to avoid mixed printf timing.
+- Stable CSV style log lines (key=value) with fixed schema.
+
+Current log format (two lines per cycle):
+```
+af_csv version=1 mode=auto seq=N phase=inject  ts=... hold_ms=0   base_ir=.. base_ps=.. base_als=.. end_ir=.. end_ps=.. end_als=.. delta_ir=0 delta_ps=0 delta_als=0 drops=0
+af_csv version=1 mode=auto seq=N phase=release ts=... hold_ms=1004 base_ir=.. base_ps=.. base_als=.. end_ir=.. end_ps=.. end_als=.. delta_ir=.. delta_ps=.. delta_als=.. drops=0
+```
+
+Observations:
+- Cycle interval ≈ 6000 ms ( ~5000 ms gap + ~1000 ms hold ), jitter < ~30 ms (OK for polling loop).
+- hold_ms drift (1000–1028) due to ms polling exit point — acceptable at this stage.
+- Event queue not overflowing (drops=0).
+- ALS currently reads 0 (may not be enabled yet) — to verify later.
+
+Why this matters:
+- Provides a deterministic “fault stimulus” baseline before adding bus stuck detection and recovery.
+- The CSV schema is now stable; downstream scripts can parse without change when we add more phases (detect / recover).
+
+Next planned steps (not done yet):
+1. Bus stuck detection (monitor SDA/SCL + failed I2C probe)
+2. Recovery pulses (toggle SCL up to 9 times + STOP + re-init)
+3. Extend log schema: detection_latency, recovery_latency, pulses, success flag
+4. Add canary globals + BSS range print for memory integrity
+5. Error classification (NACK / timeout / arbitration lost)
+
+Takeaway:
+We now have a reproducible automatic fault injection loop with structured logs. This is the foundation for measuring detection and recovery effectiveness in the coming iterations.
+
