@@ -1,0 +1,51 @@
+================================================================================
+📈 PERFORMANCE ANALYSIS - BASELINE STAGE
+================================================================================
+
+【Basic Statistics】
+  Total packets received:    806
+  Valid packets:             806
+  Lost packets:              27328095
+  Packet loss rate:          100.00%
+  Collection time:           30.0 seconds
+
+【Throughput】
+  Average packet rate:       26.86 packets/s
+  Average throughput:        779 bytes/s
+  Expected @ 115200 bps:     ~11520 bytes/s
+  Efficiency:                6.8%
+
+【Processing Time】(Sensor Read)
+  Mean:     29.70 ms
+  Median:   29.70 ms
+  Min:      29.70 ms
+  Max:      29.70 ms
+  StdDev:    0.00 ms
+
+【Send Time】(UART Transmit)
+  Mean:      4.05 ms
+  Median:    4.05 ms
+  Min:       0.00 ms
+  Max:       4.08 ms
+  StdDev:    0.14 ms
+
+【Total Time】(Process + Send)
+  Mean:     33.75 ms
+  Median:   33.76 ms
+  Min:      29.70 ms
+  Max:      33.78 ms
+  StdDev:    0.14 ms
+
+【Sampling Interval】(PC Side)
+  Mean:     31.62 ms
+  Median:   30.75 ms
+  Min:      20.12 ms
+  Max:      41.83 ms
+  StdDev:    4.39 ms
+
+【CPU Usage Estimation】
+  Average work time:         33.7 ms
+  Average period:            31.6 ms
+  CPU busy (blocking):       106.7%
+  CPU idle (wasted):         -6.7%
+  → This is the problem Baseline exposes!
