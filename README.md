@@ -3,17 +3,14 @@
 Bare-metal and low-level firmware labs on i.MX6UL (Cortex‑A7). This repo hosts small, focused projects with measurable outcomes and clear evolution steps.
 
 - Projects
-  - UART Reliability (blocking → IRQ → DMA A/B) with zero‑loss RX and PMU‑based busy%
-  - RTSP Latency (end‑to‑end measurement and jitter budget)
-  - I2C Recovery (bus hang detection and clock‑stretch recovery)
+  - UART optimization (blocking → IRQ → DMA A/B) with zero‑loss RX and PMU‑based busy%
+  - RTOS migration
 
 ## Structure
 ```
-projects/
-  uart-reliability/
-  rtsp-latency/
-  i2c-recovery/
-docs/
+labs/
+  uart_optimization/
+  freertos_migration/
 ```
 
 ## Highlights
