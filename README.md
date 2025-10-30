@@ -5,12 +5,14 @@ Bare-metal and low-level firmware labs on i.MX6UL (Cortex‑A7). This repo hosts
 - Projects
   - UART optimization (blocking → IRQ → DMA A/B) with zero‑loss RX and PMU‑based busy%
   - RTOS migration
+  - mqtt local to awsIOT
 
 ## Structure
 ```
 labs/
   uart_optimization/
   freertos_migration/
+  mqtt_awsIOT/
 ```
 
 ## Highlights
