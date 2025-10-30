@@ -16,9 +16,12 @@ static volatile int running = 1;
 void on_connect(struct mosquitto *mosq, void *obj, int rc) 
 {
     printf("Connected to MQTT broker! Return code: %d\n", rc);
-    if (rc == 0) {
+    if (rc == 0) 
+    {
         printf("Connection successful!\n");
-    } else {
+    } 
+    else 
+    {
         printf("Connection failed!\n");
     }
 }
@@ -33,7 +36,8 @@ void on_disconnect(struct mosquitto *mosq, void *obj, int rc)
     printf("Disconnected from broker (rc=%d)\n", rc);
 }
 
-void signal_handler(int sig) {
+void signal_handler(int sig) 
+{
     printf("\nCaught signal %d, exiting...\n", sig);
     running = 0;
 }
